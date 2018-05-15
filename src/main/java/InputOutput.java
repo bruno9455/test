@@ -9,6 +9,7 @@ class InputOutput {
     private String fileOutput;
     private BufferedWriter writer;
     private int size;
+    private boolean hasSize;
 
     public InputOutput() {
         this.matrix = new ArrayList<>();
@@ -69,8 +70,9 @@ class InputOutput {
      * @param line first line of matrix
      */
     private void startMatrix(String line) {
-        int size = (line.length() - 3) / 2;
-        if (size > 1) {
+        this.size = (line.length() - 3) / 2;
+        if (this.size > 1) {
+            this.hasSize = true;
             boolean[] matrixLine = new boolean[size];
             for (int i = 0; i < size; i++) {
                 matrixLine[i] = line.charAt(2 * i + 2) != '0';
@@ -87,8 +89,9 @@ class InputOutput {
     private void write2Matrix(String line) {
         int sizeTemp = (line.length() - 2) / 2;
         if (sizeTemp > 1) {
-            if (this.size == 0) {
+            if (!this.hasSize) {
                 this.size = sizeTemp;
+                this.hasSize = true;
             }
             boolean[] matrixLine = new boolean[this.size];
             for (int i = 0; i < size; i++) {
